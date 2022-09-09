@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardContent, CardMedia, Divider, Grid, TextField, Typography } from '@mui/material'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import { dataIPhones } from '../iphones';
 import Marquee from "react-fast-marquee";
@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { FullScreenLoading } from '../components/ui'
 import { format, formattwo } from '../utils/formater';
 import AppleIcon from '@mui/icons-material/Apple';
-
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 
 const Home: NextPage = () => {
@@ -79,7 +79,7 @@ const Home: NextPage = () => {
                 {
                   dataIPhones.map(e => (
                     <>
-                      <Card sx={{ m: 1 }}>
+                      <Card sx={{ m: 1 }} key={e.name}>
                         <CardContent>
                           <CardMedia>
                             <Image src={e.image} alt={e.name} width={190} height={300} />
@@ -115,9 +115,6 @@ const Home: NextPage = () => {
                   </Box>
                 </div>
               </Grid>
-            </Grid>
-
-            <Grid container>
               <Grid item xs={12} md={6} sx={{ backgroundColor: 'white' }}>
                 <div data-aos="fade-left">
                   <Box>
@@ -165,10 +162,6 @@ const Home: NextPage = () => {
                   </Box>
                 </div>
               </Grid>
-            </Grid>
-
-
-            <Grid container sx={{ backgroundColor: 'black' }}>
               <Grid item xs={12} md={6} justifyContent="flex-end">
                 <div data-aos="zoom-in">
                   <Image src={'https://res.cloudinary.com/dhu16ubcp/image/upload/v1662685688/iphone_14_pro__bdluirpa1ele_large_elpdxf.jpg'} alt={'celu'} width={640} height={485} />
@@ -207,6 +200,20 @@ const Home: NextPage = () => {
                 </div>
               </Grid>
             </Grid>
+            <Grid item xs={12} sx={{ pt: 2, backgroundColor: 'white' }}>
+              <Box display='flex' justifyContent='center' sx={{ mb: 2 }}>
+                <Box display='flex' alignItems='center'>
+                  <Typography variant='h5' sx={{ color: 'black' }} alignSelf='end'>Nos encontramos en Zona Sur</Typography>
+                  <LocationOnIcon sx={{ color: 'red', fontSize: 35 }} />
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <div data-aos="zoom-out-left">
+                <div ><iframe width="100%" height="600" scrolling="no" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=es&amp;q=Monte%20grande+()&amp;t=p&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/car-satnav-gps/">GPS car tracker</a></iframe></div>
+              </div>
+            </Grid>
+
           </Layout>
       }
     </>
