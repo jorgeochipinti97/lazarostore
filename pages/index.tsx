@@ -1,4 +1,5 @@
-import { Box, Button, Card, CardContent, CardMedia, Divider, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardContent, CardMedia, Divider, Grid, Link, TextField, Typography } from '@mui/material'
+import NextLink from 'next/link';
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import { dataIPhones } from '../iphones';
@@ -33,10 +34,10 @@ const Home: NextPage = () => {
           :
           <Layout title='Lazaro Store'>
             <Grid container sx={{ backgroundColor: 'black' }}>
-              <Grid item xs={12} md={6} justifyContent="flex-end">
+              <Grid item xs={12} md={6} justifyContent="flex-end" sx={{ mb: 2 }}>
                 <div data-aos="fade-down-right">
                   <Box display='flex' justifyContent='center'>
-                    <Typography sx={{ fontFamily: 'Anton', textAlign: 'center', m: 5, overflowY: 'hidden' }} variant='h3'>
+                    <Typography sx={{ fontFamily: 'Anton', textAlign: 'center', pb: 3, pt: 3, overflowY: 'hidden' }} variant='h3'>
                       IMPOTADORES DIRECTOS
                       <AppleIcon sx={{ ml: 2, fontSize: 50 }} />
                     </Typography>
@@ -45,23 +46,6 @@ const Home: NextPage = () => {
                     <Typography sx={{ fontFamily: 'Anton', textAlign: 'center', overflowY: 'hidden' }} variant='h3'>
                       TESTER <br /> & <br /> CAJA SELLADA
                     </Typography>
-                  </Box>
-                  <Divider sx={{ my: 1, backgroundColor: 'white' }} />
-                  <Box>
-                    <Typography sx={{ textAlign: 'center', m: 2 }} variant='h4'>
-                      NO DUDES EN CONSULTAR NUESTRO STOCK
-                    </Typography>
-                    <Box display='flex' justifyContent='center'>
-                      <Button sx={{ color: 'whitesmoke', border: '1px solid white', m: 3 }} variant='outlined' >
-                        <WhatsAppIcon sx={{ fontSize: 50, m: 1 }} />
-                      </Button >
-                      <Button sx={{ color: 'white', border: '1px solid white', m: 3 }} variant='outlined' >
-                        <InstagramIcon sx={{ fontSize: 50, m: 1 }} />
-                      </Button>
-                      <Button sx={{ color: 'white', border: '1px solid white', m: 3 }} variant='outlined' >
-                        <EmailOutlinedIcon sx={{ fontSize: 50, m: 1 }} />
-                      </Button>
-                    </Box>
                   </Box>
                 </div>
               </Grid>
@@ -78,24 +62,24 @@ const Home: NextPage = () => {
               >
                 {
                   dataIPhones.map(e => (
-                    <>
-                      <Card sx={{ m: 1 }} key={e.name}>
-                        <CardContent>
-                          <CardMedia>
-                            <Image src={e.image} alt={e.name} width={190} height={300} />
-                          </CardMedia>
-                          <Box display='flex' justifyContent='center'>
-                            <Typography variant='subtitle1'>{e.name}</Typography>
-                          </Box>
-                          <Box display='flex' justifyContent='center' sx={{ pt: 2 }}>
-                            <Button color='success' variant='contained'>
-                              <Typography variant='body1' color='success' >{format(e.price)} </Typography>
-                            </Button>
-                          </Box>
-                          <Divider sx={{ mt: 1 }} />
-                        </CardContent>
-                      </Card>
-                    </>
+
+                    <Card sx={{ m: 1 }} key={e.name}>
+                      <CardContent>
+                        <CardMedia>
+                          <Image src={e.image} alt={e.name} width={190} height={300} />
+                        </CardMedia>
+                        <Box display='flex' justifyContent='center'>
+                          <Typography variant='subtitle1'>{e.name}</Typography>
+                        </Box>
+                        <Box display='flex' justifyContent='center' sx={{ pt: 2 }}>
+                          <Button color='success' variant='contained'>
+                            <Typography variant='body1' color='success' >{format(e.price)} </Typography>
+                          </Button>
+                        </Box>
+                        <Divider sx={{ mt: 1 }} />
+                      </CardContent>
+                    </Card>
+
                   ))
                 }
               </Marquee>
@@ -108,12 +92,36 @@ const Home: NextPage = () => {
                   </Box>
                 </div>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <div data-aos="zoom-out-left">
-                  <Box display='flex' justifyContent='center'>
-                    <Image src='https://res.cloudinary.com/dhu16ubcp/image/upload/v1662744830/www.apple.com_794_macbook_pro_13__e3r46kd69eoi_large_2x_muh5g4.jpg' alt='' width={1662} height={860} />
+              <Grid item 
+                xs={12} md={6} sx={{ backgroundColor: { xs: 'white', md: 'black' },overflowY: 'hidden', }}>
+                <div data-aos="zoom-out-left" >
+                  <Box>
+                    <Typography sx={{ textAlign: 'center', m: 2, fontFamily: 'Anton', overflowY: 'hidden', color: { xs: 'black', md: 'white' } }} variant='h4'>
+                      ¡No olvides seguirnos y consultar nuestro stock!
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Box display='flex' justifyContent='center'>
+                      <Button sx={{ color: { xs: 'black', md: 'white' }, border: { xs: '1px solid black', md: '1px solid white' }, m: 3 }} variant='outlined' >
+                        <WhatsAppIcon sx={{ fontSize: 30, m: 1 }} />
+                      </Button >
+                      <Button sx={{ color: { xs: 'black', md: 'white' }, border: { xs: '1px solid black', md: '1px solid white' }, m: 3 }} variant='outlined' >
+                        <InstagramIcon sx={{ fontSize: 30, m: 1 }} />
+                      </Button>
+                      <Button sx={{ color: { xs: 'black', md: 'white' }, border: { xs: '1px solid black', md: '1px solid white' }, m: 3 }} variant='outlined' >
+                        <EmailOutlinedIcon sx={{ fontSize: 30, m: 1 }} />
+                      </Button>
+                    </Box>
+                  </Box>
+                  <Box display='flex' justifyContent='center' sx={{ mb: 2 }}>
+                    <Box display='flex' alignItems='center'>
+                      <Typography variant='h5' sx={{ color: { xs: 'black', md: 'white' } }} alignSelf='end'>Nos encontramos en Zona Sur</Typography>
+                      <LocationOnIcon sx={{ color: 'red', fontSize: 35 }} />
+                    </Box>
                   </Box>
                 </div>
+                <iframe width="100%" height="100%" frameBorder="0" src="https://maps.google.com/maps?width=100%25&amp;height=500&amp;hl=es&amp;q=Monte%20grande+()&amp;t=p&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+
               </Grid>
               <Grid item xs={12} md={6} sx={{ backgroundColor: 'white' }}>
                 <div data-aos="fade-left">
@@ -200,21 +208,7 @@ const Home: NextPage = () => {
                 </div>
               </Grid>
             </Grid>
-            <Grid item xs={12} sx={{ pt: 2, backgroundColor: 'white' }}>
-              <Box display='flex' justifyContent='center' sx={{ mb: 2 }}>
-                <Box display='flex' alignItems='center'>
-                  <Typography variant='h5' sx={{ color: 'black' }} alignSelf='end'>Nos encontramos en Zona Sur</Typography>
-                  <LocationOnIcon sx={{ color: 'red', fontSize: 35 }} />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <div data-aos="zoom-out-left">
-                <div ><iframe width="100%" height="600" scrolling="no" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=es&amp;q=Monte%20grande+()&amp;t=p&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/car-satnav-gps/">GPS car tracker</a></iframe></div>
-              </div>
-            </Grid>
-
-          </Layout>
+          </Layout >
       }
     </>
 
