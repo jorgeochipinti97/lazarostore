@@ -1,7 +1,8 @@
 export interface IProduct {
+    _id?:string
     name: string
+    slug:string
     price: number
-    capacidad: string
-    bateria?: string
+    images: string[]
     nuevo: boolean
 }

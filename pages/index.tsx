@@ -1,8 +1,6 @@
 import { Box, Button, Card, CardContent, CardMedia, Divider, Grid, Link, TextField, Typography } from '@mui/material'
-import NextLink from 'next/link';
-import type { GetServerSideProps, NextPage } from 'next'
+import { NextPage, GetStaticProps } from 'next';
 import Image from 'next/image'
-import { dataIPhones } from '../iphones';
 import Marquee from "react-fast-marquee";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -13,9 +11,16 @@ import { FullScreenLoading } from '../components/ui'
 import { format, formattwo } from '../utils/formater';
 import AppleIcon from '@mui/icons-material/Apple';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { dbProducts } from '../database';
+import { IProduct } from '../interfaces';
 
 
-const Home: NextPage = () => {
+interface Props {
+  products: IProduct[]
+}
+
+
+const Home: NextPage<Props> = ({ products }) => {
   const [data, setData] = useState(true)
 
   useEffect(() => {
@@ -24,6 +29,7 @@ const Home: NextPage = () => {
       clearInterval(interval_)
     }, 800)
 
+    console.log(products)
 
   }, [])
   return (
@@ -61,12 +67,12 @@ const Home: NextPage = () => {
                 gradient={false}
               >
                 {
-                  dataIPhones.map(e => (
+                  products && products.map(e => (
 
                     <Card sx={{ m: 1 }} key={e.name}>
                       <CardContent>
                         <CardMedia>
-                          <Image src={e.image} alt={e.name} width={190} height={300} />
+                          <Image src={e.images[0]} alt={e.name} width={190} height={300} />
                         </CardMedia>
                         <Box display='flex' justifyContent='center'>
                           <Typography variant='subtitle1'>{e.name}</Typography>
@@ -92,8 +98,8 @@ const Home: NextPage = () => {
                   </Box>
                 </div>
               </Grid>
-              <Grid item 
-                xs={12} md={6} sx={{ backgroundColor: { xs: 'white', md: 'black' },overflowY: 'hidden', }}>
+              <Grid item
+                xs={12} md={6} sx={{ backgroundColor: { xs: 'white', md: 'black' }, overflowY: 'hidden', }}>
                 <div data-aos="zoom-out-left" >
                   <Box>
                     <Typography sx={{ textAlign: 'center', m: 2, fontFamily: 'Anton', overflowY: 'hidden', color: { xs: 'black', md: 'white' } }} variant='h4'>
@@ -213,6 +219,28 @@ const Home: NextPage = () => {
     </>
 
   )
+}
+
+
+export const getStaticProps: GetStaticProps = async () => {
+
+  const products: IProduct[] = await dbProducts.getAllProducts();
+
+  if (!products) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      products
+    },
+    revalidate: 60 * 60 * 24
+  }
 }
 
 export default Home
